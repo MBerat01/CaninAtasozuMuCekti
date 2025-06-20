@@ -1,60 +1,67 @@
-# Canın Atasözü mü Çekti? 🤔🧠
+# 📜 Canın Atasözü mü Çekti?
 
-Bu proje, kullanıcıdan aldığı duygu durumuna göre ona uygun, etkileyici, komik veya motive edici atasözlerini sunan bir Türkçe Streamlit uygulamasıdır.
+<div align="center">
+  <img src="https://img.shields.io/badge/Duygusal-Yapay--Zeka-blueviolet?style=flat-square" alt="Badge">
+  <img src="https://img.shields.io/badge/Streamlit-Uygulaması-success?style=flat-square" alt="Streamlit">
+</div>
 
-## 📌 Özellikler
-
-- 🔍 Duygu analizi (üzgün, mutlu, stresli, yorgun, sinirli vb.)
-- 🧠 Her duygu için özel seçilmiş 5’er atasözü
-- 😂 Komik ve argo kategori bonusu
-- 🎨 Modern ve mobil uyumlu kullanıcı arayüzü
-- 📢 Türkçe sesli okuma desteği
-- 🎞️ Açılışta dikkat çeken GIF ile karşılama
-- ⚡ Kullanıcı istemezse rastgele atasözü de seçebilir
-
-## 🚀 Kullanım
-
-Projeyi çalıştırmak için:
-
-1. Terminal açın ve klasöre gidin:
-   ```bash
-   cd CaninAtasozuMuCekti
-   ```
-
-2. Gerekli kütüphaneleri yükleyin:
-   ```bash
-   pip install streamlit
-   ```
-
-3. Uygulamayı başlatın:
-   ```bash
-   streamlit run streamlit_app.py
-   ```
-
-## 🛠️ Geliştiren
-
-**M. Berat Sıdal**  
-İstatistik Bölümü  
-FEF-210 Dersi Proje Ödevi (2025)  
-GitHub: [MBerat01](https://github.com/MBerat01)
+🎯 **Amaç**  
+Duygularınıza uygun atasözleri öneren eğlenceli bir Türkçe yapay zeka uygulaması!
 
 ---
 
-## 📁 Proje Yapısı
+## 🚀 Özellikler
 
-```
-📂 CaninAtasozuMuCekti
-│
-├── streamlit_app.py         # Ana uygulama dosyası
-├── atasozleri.json          # Duygulara göre atasözleri verisi
-├── assets/
-│   └── gif/                 # Açılışta kullanılan GIF dosyaları
+- 💬 **Duyguya Göre Atasözü Önerisi**
+- 😂 **Komik Mod**
+- 🔞 **+18 Mod (isteğe bağlı)**
+- 🔊 **Sesli Atasözü Okuma (gTTS ile)**
+- 📱 **Mobil uyumlu tasarım**
+- 🎨 **Renkli ve kullanıcı dostu arayüz**
+- 🌀 **Animasyonlu geçişler & temiz tasarım**
+- 📊 **Atasözlerini rastgele tekrar etmeden sunma**
+
+---
+
+## 🛠️ Kullanılan Teknolojiler
+
+- [Streamlit](https://streamlit.io/)
+- [gTTS (Google Text-to-Speech)](https://pypi.org/project/gTTS/)
+- Python 3.11+
+- JSON ile veri yönetimi
+
+---
+
+## 📸 Uygulama Ekran Görüntüsü
+
+![Uygulama Ekranı](https://github.com/MBerat01/CaninAtasozuMuCekti/blob/main/images/screenshot.png)
+
+---
+
+## 🔗 Uygulama Linki
+
+👉 [Canın Atasözü mü Çekti? - Uygulamayı Aç](https://caninatasozumucekti-falpqqfu2edsjsknr5ncuy.streamlit.app)
+
+---
+
+## 📁 Kurulum (Yerel)
+
+```bash
+git clone https://github.com/MBerat01/CaninAtasozuMuCekti.git
+cd CaninAtasozuMuCekti
+pip install -r requirements.txt
+streamlit run streamlit_app.py
 ```
 
 ---
 
-## 💡 Genişletilebilirlik
+## 📌 FEF-210 Dersi - Proje Ödevi
 
-- Daha fazla duygu sınıfı
-- Kullanıcıdan sesle duygu algılama (speech-to-text)
-- Günün atasözü mail ile gönderimi
+Bu proje, Eskişehir Osmangazi Üniversitesi FEF-210 dersi kapsamında geliştirilmiştir.
+
+---
+
+## 👤 Geliştirici
+
+- **Ad**: M. Berat Sıdal  
+- **GitHub**: [MBerat01](https://github.com/MBerat01)
