@@ -1,13 +1,12 @@
-
 import streamlit as st
 import random
-from gtts import gTTS
 import json
+from gtts import gTTS
 import os
 
-# JSON'dan atasözleri yükle
-with open("atasozleri.json", "r", encoding="utf-8") as f:
-    atasozleri = json.load(f)
+# Atasözleri veri kümesi
+with open("atasozleri.json", "r", encoding="utf-8") as file:
+    atasozleri = json.load(file)
 
 # Duygu kelimeleri
 duygular = {
@@ -18,62 +17,51 @@ duygular = {
     "korkmuş": ["korkuyorum", "endişeliyim", "panik oldum", "ürktüm"]
 }
 
-# Duyguyu metinden tahmin et
-def duygu_tahmin_et(metin):
+def duygu_tespit(metin):
     metin = metin.lower()
     for duygu, kelimeler in duygular.items():
-        if any(kelime in metin for kelime in kelimeler):
+        if any(k in metin for k in kelimeler):
             return duygu
     return "anlamadım"
 
-# Geçmişi saklamak için session_state
-if "gecmis" not in st.session_state:
-    st.session_state["gecmis"] = {"komik": [], "komik_18": []}
-
 st.set_page_config(page_title="Canın Atasözü mü Çekti?", layout="centered")
 st.title("📜 Canın Atasözü mü Çekti?")
+st.markdown("Duygunu yaz, sana uygun bir atasözü gelsin!")
 
-st.markdown("🎯 **Duygunu ya da hissettiklerini yaz, sana uygun bir atasözü gelsin!**")
-st.markdown("<hr>", unsafe_allow_html=True)
+if "gecmis" not in st.session_state:
+    st.session_state.gecmis = {"komik": [], "komik_18": []}
 
 secim = st.radio("🎛️ Mod Seçimi:", ["Duyguya Göre", "Komik", "Komik +18"], horizontal=True)
-metin = st.text_input("✍️ Bugünkü ruh halin?")
+metin = st.text_input("✍️ Ne hissediyorsun?")
 
 if st.button("🔮 Atasözü Söyle"):
-    gecmis = st.session_state["gecmis"]
-
     if secim == "Duyguya Göre":
-        duygu = duygu_tahmin_et(metin)
+        duygu = duygu_tespit(metin)
         if duygu in atasozleri:
             secilen = random.choice(atasozleri[duygu])
-            st.success(f"🧠 Duygun: `{duygu}`")
         else:
-            duygu = "anlamadım"
-            secilen = random.choice(atasozleri[duygu])
-            st.warning("🤖 Ne hissettiğini anlayamadım, beynini henüz okuyamıyorum ama sana bir atasözü bırakayım:")
-
+            secilen = random.choice(atasozleri["komik"])
+            st.warning("Duygun anlaşılamadı, sana komik bir tane seçtim 😅")
+        st.success(f"🧠 Duygun: {duygu.capitalize()}")
     elif secim == "Komik":
-        adaylar = [a for a in atasozleri["komik"] if a not in gecmis["komik"]]
-        if not adaylar:
-            gecmis["komik"] = []
-            adaylar = atasozleri["komik"]
-        secilen = random.choice(adaylar)
-        gecmis["komik"].append(secilen)
+        kalanlar = [a for a in atasozleri["komik"] if a not in st.session_state.gecmis["komik"]]
+        if not kalanlar:
+            st.session_state.gecmis["komik"] = []
+            kalanlar = atasozleri["komik"]
+        secilen = random.choice(kalanlar)
+        st.session_state.gecmis["komik"].append(secilen)
+    else:
+        kalanlar = [a for a in atasozleri["komik_18"] if a not in st.session_state.gecmis["komik_18"]]
+        if not kalanlar:
+            st.session_state.gecmis["komik_18"] = []
+            kalanlar = atasozleri["komik_18"]
+        secilen = random.choice(kalanlar)
+        st.session_state.gecmis["komik_18"].append(secilen)
 
-    else:  # Komik +18
-        adaylar = [a for a in atasozleri["komik_18"] if a not in gecmis["komik_18"]]
-        if not adaylar:
-            gecmis["komik_18"] = []
-            adaylar = atasozleri["komik_18"]
-        secilen = random.choice(adaylar)
-        gecmis["komik_18"].append(secilen)
-
-    # Atasözünü göster
     st.markdown(f"📢 **Atasözü:** _{secilen}_")
-
-    # Sesli oku
-    tts = gTTS(text=secilen, lang='tr')
-    tts.save("atasozu.mp3")
-    st.audio("atasozu.mp3")
-
-    st.session_state["gecmis"] = gecmis
+    try:
+        tts = gTTS(text=secilen, lang='tr')
+        tts.save("atasozu.mp3")
+        st.audio("atasozu.mp3")
+    except:
+        st.error("Sesli okuma başarısız oldu.")
